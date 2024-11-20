@@ -23,7 +23,7 @@ import { PlusCircle, ChevronLeft, ChevronRight, Repeat, X } from "lucide-react";
 // Add this CSS to your globals.css or similar
 const styles = `
   .flip-card-inner {
-    transition: transform 0.6s;
+    transition: transform 0.8s;
     transform-style: preserve-3d;
     position: relative;
     width: 100%;
@@ -39,11 +39,11 @@ const styles = `
   }
 
   .flip-card-back {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg) rotateX(30deg);
   }
 
   .flipped {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg) rotateX(30deg);
   }
 `;
 
@@ -168,11 +168,11 @@ const FlashcardApp = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background p-4 sm:p-8">
+    <div className="min-h-screen bg-background p-3 sm:p-8">
       <div className="max-w-3xl mx-auto space-y-8">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold">Flashcards</h1>
-          <p className="text-muted-foreground mt-2">Click the card to flip</p>
+        <div className="sm:text-center sm:mt-0 mt-3">
+          <h1 className="sm:text-4xl text-2xl font-bold">Flashcards</h1>
+          <p className="text-muted-foreground sm:mt-2 sm:text-md text-xs">Click the card to flip</p>
         </div>
 
         {/* Flashcard */}
@@ -185,22 +185,22 @@ const FlashcardApp = () => {
               className="flip-card-front cursor-pointer"
               style={{
                 backgroundImage: `
-                  radial-gradient(at 100% 100%, rgb(255, 255, 255) 0%, transparent 50%),
-                  radial-gradient(at 0% 0%, rgb(255, 255, 255) 0%, transparent 50%),
-                  linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px)
+                  radial-gradient(at 100% 100%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                  radial-gradient(at 0% 0%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                  linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
                 `,
                 backgroundSize: "100% 100%, 100% 100%, 100% 4px",
                 boxShadow: `
-                  inset 0 0 20px rgba(0, 0, 0, 0.05),
-                  inset 0 0 80px rgba(255, 255, 255, 0.7)
+                  inset 0 0 20px rgba(255, 255, 255, 0.1),
+                  inset 0 0 80px rgba(0, 0, 0, 0.7)
                 `,
               }}
             >
               <CardContent className="absolute inset-0 flex items-center justify-center p-6">
-                <div className="absolute top-4 right-4 text-sm text-muted-foreground">
+                <div className="absolute top-4 right-4 sm:text-sm text-xs text-muted-foreground">
                   Question
                 </div>
-                <h2 className="text-2xl font-semibold text-center">
+                <h2 className="sm:text-2xl text-xl font-semibold text-center">
                   {cards[currentCardIndex].question}
                 </h2>
               </CardContent>
@@ -210,14 +210,14 @@ const FlashcardApp = () => {
               className="flip-card-back cursor-pointer"
               style={{
                 backgroundImage: `
-                  radial-gradient(at 100% 100%, rgb(255, 255, 255) 0%, transparent 50%),
-                  radial-gradient(at 0% 0%, rgb(255, 255, 255) 0%, transparent 50%),
-                  linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px)
+                  radial-gradient(at 100% 100%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                  radial-gradient(at 0% 0%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                  linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
                 `,
                 backgroundSize: "100% 100%, 100% 100%, 100% 4px",
                 boxShadow: `
-                  inset 0 0 20px rgba(0, 0, 0, 0.05),
-                  inset 0 0 80px rgba(255, 255, 255, 0.7)
+                  inset 0 0 20px rgba(255, 255, 255, 0.1),
+                  inset 0 0 80px rgba(0, 0, 0, 0.7)
                 `,
               }}
             >
@@ -280,7 +280,7 @@ const FlashcardApp = () => {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  variant="destructive"
+                  variant="secondary"
                   size="icon"
                   onClick={handleDeleteCard}
                 >
@@ -296,8 +296,8 @@ const FlashcardApp = () => {
         <div className="flex justify-center">
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button>
-                <PlusCircle className="mr-2 h-4 w-4" />
+              <Button className="sm:text-md">
+                <PlusCircle className="mr-1 h-5 w-5" />
                 Add New Card
               </Button>
             </DialogTrigger>
@@ -317,7 +317,7 @@ const FlashcardApp = () => {
                     autoComplete={"false"}
                   />
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-2 mb-4">
                   <Label htmlFor="answer">Answer</Label>
                   <Input
                     id="answer"
@@ -328,7 +328,8 @@ const FlashcardApp = () => {
                     autoComplete={"false"}
                   />
                 </div>
-                <Button onClick={handleAddCard} className="w-full">
+                <Button onClick={handleAddCard} className="w-full sm:text-md">
+                  <PlusCircle className="mr-1 h-5 w-5" />
                   Add Card
                 </Button>
               </div>
